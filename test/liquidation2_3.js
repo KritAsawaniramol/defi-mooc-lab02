@@ -6,7 +6,7 @@ const { network, ethers } = require("hardhat");
 const { BigNumber, utils }  = require("ethers");
 const { writeFile } = require('fs');
 
-describe("Liquidation by 2000 USDT", function () {
+describe("Liquidation by 10000 USDT", function () {
   it("test", async function () {
     await network.provider.request({
         method: "hardhat_reset",
@@ -32,11 +32,11 @@ describe("Liquidation by 2000 USDT", function () {
     }));
 
     //deploy contract "LiquidationOperator" ลงไปบน ETH blockchain
-    const LiquidationOperator = await ethers.getContractFactory("LiquidationOperator");
+    const LiquidationOperator = await ethers.getContractFactory("LiquidationOperator2_3");
     const liquidationOperator = await LiquidationOperator.deploy(overrides = {gasPrice: gasPrice});
     await liquidationOperator.deployed();
-
-    const liquidationTx = await liquidationOperator.operate(overrides = {gasPrice: gasPrice});
+    
+    const liquidationTx = await liquidationOperator.operate(overrides = {gasPrice: gasPrice});;
     const liquidationReceipt = await liquidationTx.wait();
 
     //เช็คว่าใน account นี้มี liquidationEvents จริงรึเปล่า ถ้าไม่มี simulate ไปก็ไร้ความหมาย
@@ -61,7 +61,6 @@ describe("Liquidation by 2000 USDT", function () {
 
     //ETH ที่เหลือเป็นกำไร = afterLiquidationBalance(ETH) - beforeLiquidationBalance(ETH)
     const profit = afterLiquidationBalance.sub(beforeLiquidationBalance);
-    console.log("Profit %s", profit);
 
     console.log("Profit", utils.formatEther(profit), "ETH");
     

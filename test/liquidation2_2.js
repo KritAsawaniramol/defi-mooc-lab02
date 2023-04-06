@@ -6,7 +6,7 @@ const { network, ethers } = require("hardhat");
 const { BigNumber, utils }  = require("ethers");
 const { writeFile } = require('fs');
 
-describe("Liquidation by 2000 USDT", function () {
+describe("Liquidation by 5000 USDT", function () {
   it("test", async function () {
     await network.provider.request({
         method: "hardhat_reset",
@@ -32,7 +32,7 @@ describe("Liquidation by 2000 USDT", function () {
     }));
 
     //deploy contract "LiquidationOperator" ลงไปบน ETH blockchain
-    const LiquidationOperator = await ethers.getContractFactory("LiquidationOperator");
+    const LiquidationOperator = await ethers.getContractFactory("LiquidationOperator2_2");
     const liquidationOperator = await LiquidationOperator.deploy(overrides = {gasPrice: gasPrice});
     await liquidationOperator.deployed();
 
@@ -61,11 +61,9 @@ describe("Liquidation by 2000 USDT", function () {
 
     //ETH ที่เหลือเป็นกำไร = afterLiquidationBalance(ETH) - beforeLiquidationBalance(ETH)
     const profit = afterLiquidationBalance.sub(beforeLiquidationBalance);
-    console.log("Profit %s", profit);
 
     console.log("Profit", utils.formatEther(profit), "ETH");
     
-
     expect(profit.gt(BigNumber.from(0)), "not profitable").to.be.true;
     writeFile('profit.txt', String(utils.formatEther(profit)), function (err) {console.log("failed to write profit.txt: %s", err)});
   });

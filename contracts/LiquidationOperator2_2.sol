@@ -147,7 +147,7 @@ interface IUniswapV2Pair {
 
 // ----------------------IMPLEMENTATION------------------------------
 //contract ในการทำ liquidation ที่สมบูรณ์แล้ว
-contract LiquidationOperator is IUniswapV2Callee {
+contract LiquidationOperator2_2 is IUniswapV2Callee {
     // Solidity ไม่มี float ดังนั้น health_factor_decimals = 18 หมายถึง 1.00000000000000000(1 = 10^(18)) - 0.00000000000000000;
     uint8 public constant health_factor_decimals = 18;
 
@@ -228,8 +228,8 @@ contract LiquidationOperator is IUniswapV2Callee {
         
         uniswapV2Pair_WBTC_WETH = IUniswapV2Pair(uniswapV2Factory.getPair(address(WBTC), address(WETH))); // Pool2
         //debt_USDT = จำนวน USDT ที่ไปกู้มา
-        debt_USDT = 2000000000; // 2000 USDT
-        //debt_USDT = 5000000000; // 5000 USDT
+        //debt_USDT = 2000000000; // 2000 USDT
+        debt_USDT = 5000000000; // 5000 USDT
         //debt_USDT = 10000000000; // 10000 USDT
         
         // END TODO

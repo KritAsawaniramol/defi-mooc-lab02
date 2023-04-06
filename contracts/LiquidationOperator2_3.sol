@@ -147,7 +147,7 @@ interface IUniswapV2Pair {
 
 // ----------------------IMPLEMENTATION------------------------------
 //contract ในการทำ liquidation ที่สมบูรณ์แล้ว
-contract LiquidationOperator is IUniswapV2Callee {
+contract LiquidationOperator2_3 is IUniswapV2Callee {
     // Solidity ไม่มี float ดังนั้น health_factor_decimals = 18 หมายถึง 1.00000000000000000(1 = 10^(18)) - 0.00000000000000000;
     uint8 public constant health_factor_decimals = 18;
 
@@ -228,9 +228,9 @@ contract LiquidationOperator is IUniswapV2Callee {
         
         uniswapV2Pair_WBTC_WETH = IUniswapV2Pair(uniswapV2Factory.getPair(address(WBTC), address(WETH))); // Pool2
         //debt_USDT = จำนวน USDT ที่ไปกู้มา
-        debt_USDT = 2000000000; // 2000 USDT
+        //debt_USDT = 2000000000; // 2000 USDT
         //debt_USDT = 5000000000; // 5000 USDT
-        //debt_USDT = 10000000000; // 10000 USDT
+        debt_USDT = 10000000000; // 10000 USDT
         
         // END TODO
     }
@@ -363,10 +363,11 @@ contract LiquidationOperator is IUniswapV2Callee {
 
 
         //2.4 convert WBTC remaining to WETH for calculate profit
-        uint balance_WBTC_remaining = WBTC.balanceOf(address(this));
-        WBTC.transfer(address(uniswapV2Pair_WBTC_WETH), balance_WBTC_remaining);
-        uint amountOut_WETH = getAmountOut(balance_WBTC_remaining, reserve_WBTC_Pool2, reserve_WETH_Pool2); //ETH ที่เป็นกำไร 
-        uniswapV2Pair_WBTC_WETH.swap(0, amountOut_WETH, address(this), "");
+            uint balance_WBTC_remaining = WBTC.balanceOf(address(this));
+            WBTC.transfer(address(uniswapV2Pair_WBTC_WETH), balance_WBTC_remaining);
+            uint amountOut_WETH = getAmountOut(balance_WBTC_remaining, reserve_WBTC_Pool2, reserve_WETH_Pool2); //ETH ที่เป็นกำไร 
+            uniswapV2Pair_WBTC_WETH.swap(0, amountOut_WETH, address(this), "");
+        
 
         // END TODO
     }
