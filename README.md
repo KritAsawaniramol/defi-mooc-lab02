@@ -105,4 +105,3 @@ With the flash loan, you now have enough token D. You can repay the debt for the
 ### More reference
 Please check out the links in the template file (`contracts/LiquidationOperator.sol`) for how to use the interfaces. [Etherscan](https://etherscan.io/) is a handy tool for exploring addresses, blocks, and transactions on-chain. If you have further questions or comments, please feel free to [submit an issue](https://github.com/KaihuaQin/defi-mooc-lab2/issues/new).
 # defi-mooc-lab02
-# defi-mooc-lab02
